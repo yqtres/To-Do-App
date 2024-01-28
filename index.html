@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/650e97f0c1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>To-Do App</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="mySidebar" class="sidebar">
+            <a href="#" class="icons"><i class="fa-solid fa-circle-info"></i> Info</a>
+            <a href="#" class="icons"><i class="fa-solid fa-moon"></i> Dark Mode</a>
+            <a href="#" class="icons"><i class="fa-solid fa-palette"></i> Theme</a>
+        </div>        
+        <button id="openbtn" class="openbtn" onclick="openNav()"><i class="fa-solid fa-bars"></i></button>
+        <div class="card">
+            <div class="head">
+                <h2>To-Do List</h2>
+                <p id="counter">0</p>
+            </div>
+            <div class="adding">
+                <input type="text" id="input" placeholder="Add your To-Do">
+                <button>Add</button>
+            </div>
+            <div class="todo-container"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
