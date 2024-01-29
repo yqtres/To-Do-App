@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let openDropdown = null;
     let todoCount = 0;
 
+    // retrieves stored items from local storage, create html elements, update counter
     const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
     storedTodos.forEach((todo) => {
         elements.todoContainer.appendChild(createTodoItem(todo.text, todo.isCompleted));
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.input.addEventListener("keypress", (event) => event.key === "Enter" && addTodo());
     elements.todoContainer.addEventListener("click", handleTodoClick);
 
+    // if input is not empty, add new todo, update counter and save to local storage
     function addTodo() {
         const inputValue = elements.input.value.trim();
         if (inputValue !== "") {
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // style sidebar, close any open dropdowns
     function toggleNav() {
         const sidebarWidth = elements.sidebar.style.width;
         elements.sidebar.style.width = sidebarWidth === "200px" ? "0" : "200px";
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // show only one dropdown menu
     function toggleDropdown(dropdownContent) {
         if (openDropdown && openDropdown !== dropdownContent) openDropdown.classList.remove("show");
         dropdownContent.classList.toggle("show");
@@ -64,10 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (openDropdown) openDropdown.classList.remove("show");
     }
 
+    // create a new to do item with a checkbox, text and menu button. Added event listeners for to do interactions
     function createTodoItem(text, isCompleted = false) {
         const todoItem = document.createElement("div");
         todoItem.classList.add("todo-item");
 
+        // create checkbox 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.classList.add("checkbox");
@@ -89,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dropdownContent = document.createElement("div");
         dropdownContent.classList.add("dropdown-content");
 
+        // create edit and delete options for the dropdown menu, attach click events to them
         const options = ["Edit", "Delete"];
         options.forEach((option) => {
             const link = document.createElement("a");
@@ -109,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        // append dropdown content to the menu button and toggle its visibility while closing any other open dropdown
         menuButton.appendChild(dropdownContent);
         menuButton.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -124,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return todoItem;
     }
 
+    // toggle the completion status of a todo item, update counter and dom, save local storage
     function toggleTodoItem(todoItem) {
         const isCompleted = todoItem.classList.toggle("completed");
         const paragraph = todoItem.querySelector("p");
@@ -140,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTodosToLocalStorage();
     }
 
+    // remove the added todo item, update counter and save to local storage
     function deleteTodoItem(todoItem) {
         const isCompleted = todoItem.classList.contains("completed");
         elements.todoContainer.removeChild(todoItem);
@@ -150,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTodosToLocalStorage();
     }
 
+    // edit the todo item and saving it to local storage
     function editToDo(todoItem) {
         const paragraph = todoItem.querySelector("p");
         const current = todoItem.querySelector("p").textContent;
@@ -161,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // save todos from the todo container to local storage in JSON format
     function saveTodosToLocalStorage() {
         const todos = Array.from(elements.todoContainer.children).map((todoItem) => {
             return {
@@ -182,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".infoContainer").classList.add("dark-mode");
     }
 
+    // darkmode, adjusting style of the todo app
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
         
